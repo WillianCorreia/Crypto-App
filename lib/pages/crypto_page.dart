@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:crypto/repositories/criptomoedas_repository.dart';
 import 'package:flutter/material.dart';
 
 class CryptoPage extends StatelessWidget {
@@ -7,15 +8,28 @@ class CryptoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final listaCriptomoedas = CriptomoedasRepository.tabela;
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
         child: Text('Crypto Coins'),
         ),
       ),
-      body: Center(
-        child: Text('Ola'),
+      body: ListView.separated(
+        itemBuilder:(BuildContext context, int cripto) {
+          return ListTile(
+            leading: Image.asset('assets/images/dinheiro.png'),
+            title: Text(listaCriptomoedas[cripto].nome),
+            subtitle: Text(listaCriptomoedas[cripto].sigla),
+            trailing: Text(listaCriptomoedas[cripto].valor),
+          );
+        },
+        padding: EdgeInsets.all(16),
+        separatorBuilder: (_,__) => Divider(),
+        itemCount: listaCriptomoedas.length,
       ),
+
     );
 
 
