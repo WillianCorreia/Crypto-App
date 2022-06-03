@@ -2,7 +2,7 @@ class Criptomoedas {
   String icone;
   String nome;
   String sigla;
-  String valor;
+  double valor;
 
   Criptomoedas({
     required this.icone,
