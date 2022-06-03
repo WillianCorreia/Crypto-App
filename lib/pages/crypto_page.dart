@@ -19,7 +19,7 @@ class CryptoPage extends StatelessWidget {
       body: ListView.separated(
         itemBuilder:(BuildContext context, int cripto) {
           return ListTile(
-            leading: Image.asset('assets/images/dinheiro.png'),
+            leading: Image.asset(listaCriptomoedas[cripto].icone),
             title: Text(listaCriptomoedas[cripto].nome),
             subtitle: Text(listaCriptomoedas[cripto].sigla),
             trailing: Text(listaCriptomoedas[cripto].valor),
