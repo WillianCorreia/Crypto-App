@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:crypto/models/criptomoedas.dart';
+import 'package:crypto/pages/crypto_detalhes_page.dart';
 import 'package:crypto/repositories/criptomoedas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,6 +41,12 @@ class _CryptoPageState extends State<CryptoPage> {
       );
     }
   }
+  //Direcionar para pagina de Detalhe
+  detalharCrypto (Criptomoedas criptomoeda) {
+     Navigator.push(context, MaterialPageRoute(
+         builder: (_) => CryptoDetalhesPage(criptomoeda: criptomoeda)));
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +77,16 @@ class _CryptoPageState extends State<CryptoPage> {
             selectedColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),),
-            onTap: () {
+            //Selecionar para Favoritar
+            onLongPress: () {
               setState(() {
                 (selecionado.contains(listaCriptomoedas[criptomoeda]))
                     ? selecionado.remove(listaCriptomoedas[criptomoeda])
                     : selecionado.add(listaCriptomoedas[criptomoeda]);
               });
             },
+            //Detalhar Criptomoeda
+            onTap: () => detalharCrypto(listaCriptomoedas[criptomoeda]),
           );
         },
         padding: EdgeInsets.all(16),
