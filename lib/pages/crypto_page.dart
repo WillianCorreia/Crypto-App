@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CryptoPage extends StatefulWidget {
-
   CryptoPage({Key? key}) : super(key: key);
 
   @override
@@ -15,20 +14,37 @@ class CryptoPage extends StatefulWidget {
 
 class _CryptoPageState extends State<CryptoPage> {
   final listaCriptomoedas = CriptomoedasRepository.tabela;
-
   //Formatação do valor
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
-
   List<Criptomoedas> selecionado = [];
+
+  appBarDinamica() {
+    if(selecionado.isEmpty) {
+      return AppBar( //Nada Selecionado
+        title: Center(child: Text('Criptomoedas')));
+    } else {
+      return AppBar( //Item Selecionado
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+            setState(() {
+              selecionado = [];
+            });},),
+        title: Center(child: Text('${selecionado.length} selecionados'),),
+        backgroundColor: Colors.grey[500],
+        elevation: 1,
+        iconTheme: IconThemeData(color: Colors.black),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-        child: Text('Crypto Coins'),
-        ),
-      ),
+      appBar: appBarDinamica(),
       body: ListView.separated(
         itemBuilder:(BuildContext context, int criptomoeda) {
           return ListTile(
@@ -54,7 +70,7 @@ class _CryptoPageState extends State<CryptoPage> {
             selectedColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),),
-            onLongPress: () {
+            onTap: () {
               setState(() {
                 (selecionado.contains(listaCriptomoedas[criptomoeda]))
                     ? selecionado.remove(listaCriptomoedas[criptomoeda])
@@ -67,6 +83,19 @@ class _CryptoPageState extends State<CryptoPage> {
         separatorBuilder: (_,__) => Divider(),
         itemCount: listaCriptomoedas.length,
       ),
+      //Botão Favorito
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: selecionado.isNotEmpty
+        ? FloatingActionButton.extended(
+            onPressed: (){},
+            icon: Icon(Icons.star),
+            label: Text('Favoritar',
+              style: TextStyle(
+                letterSpacing: 0,
+                fontWeight: FontWeight.bold,
+              ),
+            ))
+        : null,
 
     );
 
