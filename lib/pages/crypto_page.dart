@@ -3,8 +3,10 @@
 import 'package:crypto/models/criptomoedas.dart';
 import 'package:crypto/pages/crypto_detalhes_page.dart';
 import 'package:crypto/repositories/criptomoedas_repository.dart';
+import 'package:crypto/repositories/favoritos_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CryptoPage extends StatefulWidget {
   CryptoPage({Key? key}) : super(key: key);
@@ -18,6 +20,9 @@ class _CryptoPageState extends State<CryptoPage> {
   //Formatação do valor
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<Criptomoedas> selecionado = [];
+  late FavoritosRepository favoritos;
+
+
 
   appBarDinamica() {
     if(selecionado.isEmpty) {
@@ -48,8 +53,18 @@ class _CryptoPageState extends State<CryptoPage> {
 
   }
 
+  //Limpar Selecionado
+  limparSelecionado() {
+    setState(() {
+      selecionado = [];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Favoritos
+    favoritos = Provider.of<FavoritosRepository>(context);
+
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -63,11 +78,20 @@ class _CryptoPageState extends State<CryptoPage> {
                 width: 40,
                 child: Image.asset(listaCriptomoedas[criptomoeda].icone),),
             //Configuração da Descrição do Item
-            title: Text(listaCriptomoedas[criptomoeda].nome,
-              style: TextStyle(
-                //Configuração da Fonte
-                fontWeight: FontWeight.bold,
-                fontSize: 17),
+            title: Row(
+              children: [
+                Text(
+                  listaCriptomoedas[criptomoeda].nome,
+                  style: TextStyle(
+                    //Configuração da fonte
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                //Exibir icone de favorito quando favorito
+                if (favoritos.lista.contains(listaCriptomoedas[criptomoeda]))
+                  Icon(Icons.star, color: Colors.blue, size: 12,),
+              ],
             ),
             subtitle: Text(listaCriptomoedas[criptomoeda].sigla),
             trailing: Text(real.format(listaCriptomoedas[criptomoeda].valor)),
@@ -97,7 +121,10 @@ class _CryptoPageState extends State<CryptoPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionado.isNotEmpty
         ? FloatingActionButton.extended(
-            onPressed: (){},
+            onPressed: (){
+              favoritos.saveAll(selecionado);
+              limparSelecionado();
+            },
             icon: Icon(Icons.star),
             label: Text('Favoritar',
               style: TextStyle(
@@ -106,7 +133,6 @@ class _CryptoPageState extends State<CryptoPage> {
               ),
             ))
         : null,
-
     );
 
 
