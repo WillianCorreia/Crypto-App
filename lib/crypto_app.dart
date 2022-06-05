@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:crypto/pages/crypto_page.dart';
+import 'package:crypto/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class CryptoApp extends StatelessWidget {
@@ -13,7 +14,7 @@ class CryptoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: CryptoPage(),
+      home: HomePage(),
     );
   }
 }
