@@ -12,7 +12,7 @@ class CryptoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Crypto App',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.indigo,
       ),
       home: HomePage(),
     );

@@ -92,7 +92,7 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                 padding: EdgeInsets.all(8),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.yellow.withOpacity(0.5),
+                  color: Colors.indigo.withOpacity(0.5),
                 ),
               ),
             )

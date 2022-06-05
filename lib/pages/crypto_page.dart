@@ -97,7 +97,7 @@ class _CryptoPageState extends State<CryptoPage> {
             trailing: Text(real.format(listaCriptomoedas[criptomoeda].valor)),
             //Configuração Selecionados
             selected: selecionado.contains(listaCriptomoedas[criptomoeda]),
-            selectedTileColor: Colors.amber[100],
+            selectedTileColor: Colors.indigoAccent[100],
             selectedColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),),

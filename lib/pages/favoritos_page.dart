@@ -22,7 +22,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
       ),
       //CORPO
       body: Container(
-        color: Colors.amber.withOpacity(0.3),
+        color: Colors.indigo.withOpacity(0.3),
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(12),
         //Consumir Favoritos
