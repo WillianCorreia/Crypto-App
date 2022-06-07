@@ -22,11 +22,11 @@ class _ContaPageState extends State<ContaPage> {
     NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
 
     return Scaffold(
-      //AppBar
+      //HEADER
       appBar: AppBar(
         title: Center(child: Text('Conta')),
       ),
-      //Corpo
+      //CORPO
       body: Padding(
         padding: EdgeInsets.all(12),
         child: Column(
