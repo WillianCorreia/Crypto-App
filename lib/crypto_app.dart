@@ -2,6 +2,7 @@
 
 import 'package:crypto/pages/crypto_page.dart';
 import 'package:crypto/pages/home_page.dart';
+import 'package:crypto/widget/auth_check.dart';
 import 'package:flutter/material.dart';
 
 class CryptoApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class CryptoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: HomePage(),
+      home: AuthCheck(),
     );
   }
 }
