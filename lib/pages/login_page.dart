@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors
 
+import 'package:crypto/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   late String titulo;
   late String actionButton;
   late String toogleButton;
+  bool loading = false;
 
 
   //Inicializar o estado
@@ -44,6 +47,37 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
 
+  }
+  //Realizar Login
+  login() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.mensagem),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  //Cadastrar Usuario
+  registrar() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.mensagem),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
 
@@ -80,15 +114,14 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (value) {
                       if(value!.isEmpty) {
                         return 'Informar o e-mail';
-                      } else {
-                        return null;
                       }
+                      return null;
                   },
                   ),
                 ),
                 //SENHA
                 Padding(
-                  padding: EdgeInsets.all(24),
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   child: TextFormField(
                     controller: senha,
                     obscureText: true,
@@ -101,9 +134,8 @@ class _LoginPageState extends State<LoginPage> {
                         return 'Informar a senha';
                       } else if(value.length < 6) {
                         return 'Sua senha deve possuir no mínimo 6 caracteres';
-                      } else {
-                        return null;
                       }
+                      return null;
                     },
                   ),
                 ),
@@ -111,19 +143,41 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: EdgeInsets.all(24),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      //Ação do botão
+                      if (formKey.currentState!.validate()) {
+                        if (isLogin) {
+                          login();
+                        } else {
+                          registrar();
+                        }
+                      }
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.check),
-                        Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            actionButton,
-                            style: TextStyle(fontSize: 20),
+                      children: (loading)
+                      ? [
+                          Padding(
+                            padding: EdgeInsets.all(16),
+                            child: SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        ]
+                      : [
+                          Icon(Icons.check),
+                          Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text(
+                              actionButton,
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
                     ),
                   ),
                 ),
