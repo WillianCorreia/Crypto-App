@@ -1,9 +1,11 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last, use_build_context_synchronously
 
 import 'package:crypto/models/criptomoedas.dart';
+import 'package:crypto/repositories/conta_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
 class CryptoDetalhesPage extends StatefulWidget {
@@ -20,13 +22,14 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
   //Identificador Formulario
   final _formKey = GlobalKey<FormState>();
   final _valorController = TextEditingController();
+  late ContaRepository conta;
 
 
   //Comprar
-  comprar(){
+  comprar() async {
     if(_formKey.currentState!.validate()){
       //Salvar compra
-
+      await conta.comprar(widget.criptomoeda, double.parse(_valorController.text));
       //Retornar para tela anterior
       Navigator.pop(context);
       //Mensagem de sucesso
@@ -43,6 +46,7 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
+    conta = Provider.of<ContaRepository>(context, listen: false);
     return Scaffold(
       //AppBar
       appBar: AppBar(
@@ -115,7 +119,9 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Informe um valor';
+                    return 'Informe o valor da compra';
+                  } else if (double.parse(value) > conta.saldo) {
+                    return 'Saldo Insuficiente';
                   }
                   return null;
                 },
