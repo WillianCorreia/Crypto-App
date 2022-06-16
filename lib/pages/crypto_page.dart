@@ -16,12 +16,13 @@ class CryptoPage extends StatefulWidget {
 }
 
 class _CryptoPageState extends State<CryptoPage> {
-  //Repositório de Criptomoedas
-  final listaCriptomoedas = CriptomoedasRepository.tabela;
+  //Tabela de criptomoedas
+  late List<Criptomoedas> listaCriptomoedas;
   //Formatação do valor
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<Criptomoedas> selecionado = [];
   late FavoritosRepository favoritos;
+  late CriptomoedasRepository criptomoedas;
 
 
 
@@ -69,6 +70,9 @@ class _CryptoPageState extends State<CryptoPage> {
   Widget build(BuildContext context) {
     //Repositório de Favoritos
     favoritos = Provider.of<FavoritosRepository>(context);
+    //Repositório de Criptomoedas
+    criptomoedas = context.watch<CriptomoedasRepository>();
+    listaCriptomoedas = criptomoedas.tabela;
 
     //FAVORITAR
     return Scaffold(
@@ -82,7 +86,7 @@ class _CryptoPageState extends State<CryptoPage> {
                   child: Icon(Icons.check),)
               : SizedBox(
                 width: 40,
-                child: Image.asset(listaCriptomoedas[criptomoeda].icone),),
+                child: Image.network(listaCriptomoedas[criptomoeda].icone),),
             //Descrição do Item
             title: Row(
               children: [

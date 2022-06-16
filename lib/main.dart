@@ -2,6 +2,7 @@
 
 import 'package:crypto/crypto_app.dart';
 import 'package:crypto/repositories/conta_repository.dart';
+import 'package:crypto/repositories/criptomoedas_repository.dart';
 import 'package:crypto/repositories/favoritos_repository.dart';
 import 'package:crypto/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()), //Autenticação
-        ChangeNotifierProvider(create: (context) => ContaRepository()), //Menu Conta
+        ChangeNotifierProvider(create: (context) => CriptomoedasRepository()), //API Criptomoedas
+        ChangeNotifierProvider(create: (context) => ContaRepository(criptomoedas: context.read<CriptomoedasRepository>())), //Menu Conta
         ChangeNotifierProvider(create: (context) => FavoritosRepository()), //Menu Favoritos
       ],
       child: CryptoApp(),

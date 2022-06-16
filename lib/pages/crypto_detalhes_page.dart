@@ -59,10 +59,7 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    child: Image.asset(widget.criptomoeda.icone),
-                    width: 40,
-                  ),
+                    Image.network(widget.criptomoeda.icone, scale: 2.5),
                   Container(width: 20),
                   Text(
                     real.format(widget.criptomoeda.valor),

@@ -3,6 +3,7 @@
 
 import 'package:crypto/database/db.dart';
 import 'package:crypto/models/posicao.dart';
+import 'package:crypto/repositories/criptomoedas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -10,12 +11,13 @@ class ContaRepository extends ChangeNotifier {
   late Database db;
   List<Posicao> _carteira = [];
   double _saldo = 0;
+  CriptomoedasRepository criptomoedas;
 
   get saldo => _saldo;
   List<Posicao> get carteira => _carteira;
 
   //Construtor
-  ContaRepository() {
+  ContaRepository({required this.criptomoedas}) {
     _initRepository();
   }
 

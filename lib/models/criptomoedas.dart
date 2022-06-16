@@ -1,4 +1,6 @@
 class Criptomoedas {
+  //ID
+  String baseId;
   //ICONE
   String icone;
   //NOME
@@ -10,6 +12,7 @@ class Criptomoedas {
 
   //CONSTRUTOR
   Criptomoedas({
+    required this.baseId,
     required this.icone,
     required this.nome,
     required this.sigla,
