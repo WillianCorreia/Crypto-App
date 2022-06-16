@@ -5,6 +5,7 @@ class Posicao {
   Criptomoedas criptomoeda;
   double quantidade;
 
+  //CONSTRUTOR
   Posicao({
     required this.criptomoeda,
     required this.quantidade,

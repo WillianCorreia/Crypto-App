@@ -2,7 +2,6 @@
 
 
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
 class DB {
@@ -33,7 +32,6 @@ class DB {
   _onCreate(db, versao) async {
     await db.execute(_conta);
     await db.execute(_carteira);
-    await db.execute(_historico);
     await db.insert('conta',{'saldo': 0});
   }
 
@@ -54,16 +52,4 @@ class DB {
     );
   ''';
 
-  //Criar tabela historico
-  String get _historico => '''
-    CREATE TABLE historico (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      data_operacao INT,
-      tipo_operacao TEXT,
-      criptomoeda TEXT,
-      sigla TEXT,
-      valor REAL,
-      quantidade TEXT
-    );
-  ''';
 }

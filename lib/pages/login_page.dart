@@ -30,30 +30,31 @@ class _LoginPageState extends State<LoginPage> {
     setFormAction(true);
   }
 
-  //Setar o formulario
+  //Formulario de login
   setFormAction(bool acao) {
     setState(() {
       isLogin = acao;
-      //Login
+      //LOGIN
       if(isLogin) {
-        titulo = 'Bem Vindo';
+        titulo = 'Bem Vindo !';
         actionButton = 'Login';
-        toogleButton = 'Ainda não tem conta ? Cadastre-se agora.';
-      //Cadastro
+        toogleButton = 'Ainda não tem conta ? Cadastre-se agora';
+      //CADASTRO
       } else {
         titulo = 'Crie sua conta';
         actionButton = 'Cadastrar';
-        toogleButton = 'Voltar ao Login.';
+        toogleButton = 'Realizar Login';
       }
     });
 
   }
-  //Realizar Login
+
+  //REALIZAR LOGIN
   login() async {
     setState(() => loading = true);
     try {
       await context.read<AuthService>().login(email.text, senha.text);
-    } on AuthException catch (e) {
+    } on AuthException catch (e) { //ERRO
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -64,12 +65,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  //Cadastrar Usuario
+  //CADASTRAR USUARIO
   registrar() async {
     setState(() => loading = true);
     try {
       await context.read<AuthService>().registrar(email.text, senha.text);
-    } on AuthException catch (e) {
+    } on AuthException catch (e) { //ERRO
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                       if(value!.isEmpty) {
-                        return 'Informar o e-mail';
+                        return 'Necessário informar o e-mail.';
                       }
                       return null;
                   },
@@ -131,9 +132,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     validator: (value) {
                       if(value!.isEmpty) {
-                        return 'Informar a senha';
+                        return 'Necessário informar a senha.';
                       } else if(value.length < 6) {
-                        return 'Sua senha deve possuir no mínimo 6 caracteres';
+                        return 'Sua senha deve possuir no mínimo 6 caracteres.';
                       }
                       return null;
                     },
@@ -146,9 +147,9 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       //Ação do botão
                       if (formKey.currentState!.validate()) {
-                        if (isLogin) {
+                        if (isLogin) { //LOGIN
                           login();
-                        } else {
+                        } else { //CADASTRO
                           registrar();
                         }
                       }
@@ -169,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                           )
                         ]
                       : [
-                          Icon(Icons.check),
+                          Icon(Icons.login),
                           Padding(
                             padding: EdgeInsets.all(16),
                             child: Text(

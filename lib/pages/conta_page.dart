@@ -25,31 +25,33 @@ class _ContaPageState extends State<ContaPage> {
     return Scaffold(
       //HEADER
       appBar: AppBar(
-        title: Center(child: Text('Conta')),
+        title: Center(child: Text('Minha Conta')),
       ),
       //CORPO
       body: Padding(
         padding: EdgeInsets.all(12),
         child: Column(
           children: [
-            //Saldo
             ListTile(
+              //TITULO
               title: Text('Saldo'),
+              //SALDO
               subtitle: Text(
                   real.format(conta.saldo),
-                  style: TextStyle(fontSize: 25, color: Colors.indigo)
+                  style: TextStyle(fontSize: 25, color: Colors.indigoAccent, fontWeight: FontWeight.w500)
               ),
-              trailing: IconButton(onPressed: updateSaldo, icon: Icon(Icons.edit),),
+              //ICONE
+              trailing: IconButton(onPressed: updateSaldo, icon: Icon(Icons.edit, color: Colors.black,),),
             ),
-            Divider(),
+            Divider(color: Colors.black,),
             //SAIR
             Padding(
               padding: EdgeInsets.symmetric(vertical: 24),
               child: OutlinedButton(
                 onPressed: () => context.read<AuthService>().logout(),
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.grey[400],
-                  primary: Colors.red,
+                  backgroundColor: Colors.red[300],
+                  primary: Colors.black,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +60,7 @@ class _ContaPageState extends State<ContaPage> {
                       padding: EdgeInsets.all(16),
                       child: Text(
                         'Sair',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -115,7 +117,6 @@ class _ContaPageState extends State<ContaPage> {
 
       ],
     );
-
     //Exibir Alerta
     showDialog(context: context, builder: (_) => alerta);
   }

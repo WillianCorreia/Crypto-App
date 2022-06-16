@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   int paginaAtual = 0;
   late PageController pageController;
 
+  //Inicializar o estado
   @override
   void initState() {
     super.initState();
@@ -32,32 +33,34 @@ class _HomePageState extends State<HomePage> {
   @override
     Widget build(BuildContext context) {
       return Scaffold(
+        //BODY
         body: PageView(
           controller: pageController,
+          //Adicionar as páginas
           children: [
-            CryptoPage(),
-            FavoritosPage(),
-            CarteiraPage(),
-            ContaPage(),
+            CryptoPage(), //Home
+            FavoritosPage(), //Favoritos
+            CarteiraPage(), //Carteira
+            ContaPage(), //Conta
           ],
           onPageChanged: setPaginaAtual,
         ),
-        //Botao Todas e Favoritos
+        //Botao de Menu
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: paginaAtual,
-          //Botoes Fixos
+          //Botao Fixo
           type: BottomNavigationBarType.fixed,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritos'),
             BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Carteira'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Conta'),
+            BottomNavigationBarItem(icon: Icon(Icons.manage_accounts), label: 'Conta'),
           ],
-          //Efeito do botão Todas e Favoritos
+          //Efeito do botão
           onTap: (pagina) {
             pageController.animateToPage(
               pagina,
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 700),
               curve: Curves.ease,
             );
           },
@@ -65,4 +68,5 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
+
   }

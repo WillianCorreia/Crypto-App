@@ -12,14 +12,15 @@ import 'package:provider/provider.dart';
 void main() async {
   //Executado antes do app iniciar
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); //inicializa o firebase
+  //Inicializa o Firebase
+  await Firebase.initializeApp();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthService()),
-        ChangeNotifierProvider(create: (context) => ContaRepository()),
-        ChangeNotifierProvider(create: (context) => FavoritosRepository()),
+        ChangeNotifierProvider(create: (context) => AuthService()), //Autenticação
+        ChangeNotifierProvider(create: (context) => ContaRepository()), //Menu Conta
+        ChangeNotifierProvider(create: (context) => FavoritosRepository()), //Menu Favoritos
       ],
       child: CryptoApp(),
     ),

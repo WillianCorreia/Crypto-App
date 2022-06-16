@@ -16,6 +16,7 @@ class CryptoPage extends StatefulWidget {
 }
 
 class _CryptoPageState extends State<CryptoPage> {
+  //Repositório de Criptomoedas
   final listaCriptomoedas = CriptomoedasRepository.tabela;
   //Formatação do valor
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
@@ -26,27 +27,31 @@ class _CryptoPageState extends State<CryptoPage> {
 
   appBarDinamica() {
     if(selecionado.isEmpty) {
-      return AppBar( //Nada Selecionado
+      //NADA SELECIONADO
+      return AppBar(
         title: Center(child: Text('Criptomoedas')));
     } else {
-      return AppBar( //Item Selecionado
+      //SELECIONADO
+      return AppBar(
+        //HEADER SELECIONADO
         leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
             setState(() {
               selecionado = [];
             });},),
         title: Center(child: Text('${selecionado.length} selecionados'),),
-        backgroundColor: Colors.grey[500],
+        backgroundColor: Colors.grey[600],
         elevation: 1,
         iconTheme: IconThemeData(color: Colors.black),
         titleTextStyle: TextStyle(
           color: Colors.black,
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       );
     }
   }
-  //Direcionar para pagina de Detalhe
+
+  //Detahe de criptomoeda
   detalharCrypto (Criptomoedas criptomoeda) {
      Navigator.push(context, MaterialPageRoute(
          builder: (_) => CryptoDetalhesPage(criptomoeda: criptomoeda)));
@@ -62,9 +67,10 @@ class _CryptoPageState extends State<CryptoPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Favoritos
+    //Repositório de Favoritos
     favoritos = Provider.of<FavoritosRepository>(context);
 
+    //FAVORITAR
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -77,25 +83,27 @@ class _CryptoPageState extends State<CryptoPage> {
               : SizedBox(
                 width: 40,
                 child: Image.asset(listaCriptomoedas[criptomoeda].icone),),
-            //Configuração da Descrição do Item
+            //Descrição do Item
             title: Row(
               children: [
                 Text(
+                  //Nome da criptomoeda
                   listaCriptomoedas[criptomoeda].nome,
                   style: TextStyle(
-                    //Configuração da fonte
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                //Exibir icone de favorito quando favorito
+                //Icone de favorito
                 if (favoritos.lista.contains(listaCriptomoedas[criptomoeda]))
-                  Icon(Icons.star, color: Colors.blue, size: 12,),
+                  Icon(Icons.star, color: Colors.amber, size: 14),
               ],
             ),
+            //Sigla da criptomoeda
             subtitle: Text(listaCriptomoedas[criptomoeda].sigla),
+            //Valor da criptomoeda
             trailing: Text(real.format(listaCriptomoedas[criptomoeda].valor)),
-            //Configuração Selecionados
+            //Criptomoeda Selecionada
             selected: selecionado.contains(listaCriptomoedas[criptomoeda]),
             selectedTileColor: Colors.indigoAccent[100],
             selectedColor: Colors.black,
@@ -109,7 +117,7 @@ class _CryptoPageState extends State<CryptoPage> {
                     : selecionado.add(listaCriptomoedas[criptomoeda]);
               });
             },
-            //Detalhar Criptomoeda
+            //DETALHAR CRIPTOMOEDA
             onTap: () => detalharCrypto(listaCriptomoedas[criptomoeda]),
           );
         },

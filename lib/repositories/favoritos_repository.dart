@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_final_fields, avoid_function_literals_in_foreach_calls
 
 import 'dart:collection';
-
 import 'package:crypto/models/criptomoedas.dart';
 import 'package:flutter/material.dart';
 

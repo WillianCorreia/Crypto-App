@@ -17,6 +17,7 @@ class CryptoDetalhesPage extends StatefulWidget {
 }
 
 class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
+  //Formatação de moeda
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   double quantidade = 0;
   //Identificador Formulario
@@ -24,12 +25,9 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
   final _valorController = TextEditingController();
   late ContaRepository conta;
 
-
-  //Comprar
-  comprar() async {
+  //SIMULAR
+  simular() async {
     if(_formKey.currentState!.validate()){
-      //Salvar compra
-      await conta.comprar(widget.criptomoeda, double.parse(_valorController.text));
       //Retornar para tela anterior
       Navigator.pop(context);
       //Mensagem de sucesso
@@ -37,23 +35,20 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
           SnackBar(
             content: Text('Compra realizada com sucesso!'),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 3),
           ));
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     conta = Provider.of<ContaRepository>(context, listen: false);
     return Scaffold(
-      //AppBar
+      //HEADER
       appBar: AppBar(
         title: Text(widget.criptomoeda.nome),
       ),
-
-      //Corpo
+      //BODY
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Column(
@@ -79,8 +74,7 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                     ),)],
               ),
             ),
-
-            //Conversao em Criptomoeda
+            //CAMPO CONVERTER
             (quantidade > 0)
             ? SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -96,24 +90,24 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                 padding: EdgeInsets.all(8),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.indigo.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.3),
                 ),
               ),
             )
             : Container(
               margin: EdgeInsets.only(bottom: 24),
             ),
-            //Formulario
+            //FORMULARIO
             Form(
               key: _formKey,
               child: TextFormField(
                 controller: _valorController,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 16, color: Colors.black),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Valor',
-                  prefixIcon: Icon(Icons.monetization_on_outlined),
-                  suffix: Text('reais', style: TextStyle(fontSize: 14)),
+                  labelText: 'Valor de Compra',
+                  prefixIcon: Icon(Icons.currency_exchange, color: Colors.black, size: 20,),
+                  suffix: Text('reais', style: TextStyle(fontSize: 16, color: Colors.black),),
                   ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -125,27 +119,27 @@ class _CryptoDetalhesPageState extends State<CryptoDetalhesPage> {
                   }
                   return null;
                 },
-                //Calcula conversao
-                onChanged: (value) {
+                //CALCULAR QUANTIDADE
+                  onChanged: (value) {
                   setState(() {
                     quantidade = double.parse(value) / widget.criptomoeda.valor;
                   });
                 },
               ),
             ),
-            //Botao de Compra
+            //BOTAO SIMULAR
             Container(
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(top: 24),
               child: ElevatedButton(
-                onPressed: comprar,
+                onPressed: simular,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check, size: 20),
-                    Text('Comprar', style: TextStyle(fontSize: 18)),
-                    Container(width: 10),
+                    Text('Simulação de Compra', style: TextStyle(fontSize: 18)),
+                    Container(width: 5),
                   ],
+
                 ),
                 ),
             ),

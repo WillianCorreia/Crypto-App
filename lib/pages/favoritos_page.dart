@@ -22,7 +22,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
       ),
       //CORPO
       body: Container(
-        color: Colors.indigo.withOpacity(0.3),
+        color: Colors.grey.withOpacity(0.3),
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(12),
         //Consumir Favoritos
@@ -31,9 +31,13 @@ class _FavoritosPageState extends State<FavoritosPage> {
             return favoritos.lista.isEmpty
                 //Se Favoritos Vazio
                 ? ListTile(
-                  leading: Icon(Icons.star),
-                  title: Text('Ainda não há criptomoedas favoritas'),)
-                //Se Favoritos Não Vazio
+                  leading: Icon(Icons.highlight_off, color: Colors.black, size: 30,),
+                  title: Text('Não há criptomoedas favoritas',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)
+                  ))
+                //Se Favoritos Preenchido
                 : ListView.builder(
                   itemCount: favoritos.lista.length,
                   itemBuilder: (_, index) {
@@ -45,4 +49,5 @@ class _FavoritosPageState extends State<FavoritosPage> {
       ),
     );
   }
+
 }

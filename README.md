@@ -1,16 +1,36 @@
-# crypto
+# Crypto APP
+----------------------------------
+Aplicativo de criptomoedas em Flutter utilizando Firebase
 
-A new Flutter project.
+## Introduçao
+Esse aplicativo foi criado para facilitar a consulta de criptomoedas.
 
-## Getting Started
+**Funcionalidades:**
+1. Consulta do valor de algumas criptomoedas
+2. Simulação de Compra
+3. Favoritar principais criptomoedas
+4. Adicionar saldo
+5. Consultar saldo
+6. Login utilizando Firebase
+7. Cadastro de usuário utilizando Firebase
 
-This project is a starting point for a Flutter application.
+## Executando o Projeto
+1. Inicialmente é necessário clonar o projeto na sua máquina.
+   [Repositório](https://github.com/WillianCorreia/Crypto-App.git)
+2. No desenvolvimento do projeto foi utilizada a IDE Android Studio
+   [Configurar Android Studio](https://developer.android.com/studio)
+3. Para executar o projeto é necessário possuir o Flutter configurado.
+   [Configuração do ambiente Flutter](https://docs.flutter.dev/get-started/install)
+4. Para realizar o login é necessário criar uma conta no Firebase
+   [Conta Firebase](https://firebase.google.com/)
+5. Na sequência é preciso configurar o Flutter Fire na sua máquina
+   [Configuração do Flutter Fire](https://firebase.flutter.dev/docs/overview/)
 
-A few resources to get you started if this is your first Flutter project:
+**Comandos Importantes**
+> npm install -g firebase-tools
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> dart pub global activate flutterfire_cli
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+> firebase login
+
+> flutterfire configure

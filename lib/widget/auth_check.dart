@@ -20,14 +20,15 @@ class _AuthCheckState extends State<AuthCheck> {
 
     //Ouvir se o usuario esta logado
     if (auth.isLoading) {
-      return loading();
+      return loading(); //Tela de carregamento
     } else if (auth.usuario == null) {
-      return LoginPage();
+      return LoginPage(); //Pagina de login
     } else {
-      return HomePage();
+      return HomePage(); //Pagina inicial
     }
   }
 
+  //Tela de carregamento
   loading() {
     return Scaffold(
       body: Center(

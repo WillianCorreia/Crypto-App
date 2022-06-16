@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:crypto/pages/crypto_page.dart';
-import 'package:crypto/pages/home_page.dart';
 import 'package:crypto/widget/auth_check.dart';
 import 'package:flutter/material.dart';
 
