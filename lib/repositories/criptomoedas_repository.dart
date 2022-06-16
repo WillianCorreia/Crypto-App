@@ -1,6 +1,7 @@
 
-// ignore_for_file: prefer_const_declarations, prefer_final_fields, avoid_function_literals_in_foreach_calls
+// ignore_for_file: prefer_const_declarations, prefer_final_fields, avoid_function_literals_in_foreach_calls, prefer_const_constructors
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:crypto/database/db.dart';
@@ -11,6 +12,7 @@ import 'package:http/http.dart' as http;
 
 class CriptomoedasRepository extends ChangeNotifier {
   List<Criptomoedas> _tabela = [];
+  late Timer intervalo;
 
   List<Criptomoedas> get tabela => _tabela;
 
@@ -18,8 +20,8 @@ class CriptomoedasRepository extends ChangeNotifier {
     _setupCriptomoedasTable();
     _setupDadosCriptomoedasTable();
     _readCriptomoedasTable();
+    _refreshValor();
   }
-
 
   //Criar tabela criptomoedas
   _setupCriptomoedasTable() async {
@@ -90,6 +92,42 @@ class CriptomoedasRepository extends ChangeNotifier {
       );
     }).toList();
     notifyListeners();
+  }
+
+  //ATUALIZAR VALOR
+  _refreshValor() async {
+    intervalo = Timer.periodic(Duration(minutes: 5), (_) => checkValor());
+  }
+
+  //CHECK VALOR
+  checkValor() async {
+    String uri = 'https://api.coinbase.com/v2/assets/search?base=BRL';
+    final response = await http.get(Uri.parse(uri));
+
+    if(response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      final List<dynamic> criptomoedas = json['data'];
+      Database db = await DB.instance.database;
+      Batch batch = db.batch();
+
+      _tabela.forEach((atual) {
+        criptomoedas.forEach((novo) {
+          if(atual.baseId == novo['base_id']) {
+            final criptomoedas = novo['prices'];
+            final valor = criptomoedas['latest_price'];
+
+            batch.update('criptomoedas', {
+              'valor': criptomoedas['latest'],
+            },
+            where: 'baseId = ?',
+            whereArgs: [atual.baseId]
+            );
+          }
+        });
+      });
+      await batch.commit(noResult: true);
+      await _readCriptomoedasTable();
+    }
   }
 
 

@@ -77,57 +77,60 @@ class _CryptoPageState extends State<CryptoPage> {
     //FAVORITAR
     return Scaffold(
       appBar: appBarDinamica(),
-      body: ListView.separated(
-        itemBuilder:(BuildContext context, int criptomoeda) {
-          return ListTile(
-            leading: (selecionado.contains(listaCriptomoedas[criptomoeda]))
-              //Exibir avatar quando selecionado
-              ? CircleAvatar(
-                  child: Icon(Icons.check),)
-              : SizedBox(
-                width: 40,
-                child: Image.network(listaCriptomoedas[criptomoeda].icone),),
-            //Descrição do Item
-            title: Row(
-              children: [
-                Text(
-                  //Nome da criptomoeda
-                  listaCriptomoedas[criptomoeda].nome,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
+      body: RefreshIndicator(
+        onRefresh: () => criptomoedas.checkValor(),
+        child: ListView.separated(
+          itemBuilder:(BuildContext context, int criptomoeda) {
+            return ListTile(
+              leading: (selecionado.contains(listaCriptomoedas[criptomoeda]))
+                //Exibir avatar quando selecionado
+                ? CircleAvatar(
+                    child: Icon(Icons.check),)
+                : SizedBox(
+                  width: 40,
+                  child: Image.network(listaCriptomoedas[criptomoeda].icone),),
+              //Descrição do Item
+              title: Row(
+                children: [
+                  Text(
+                    //Nome da criptomoeda
+                    listaCriptomoedas[criptomoeda].nome,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                //Icone de favorito
-                if (favoritos.lista.contains(listaCriptomoedas[criptomoeda]))
-                  Icon(Icons.star, color: Colors.amber, size: 14),
-              ],
-            ),
-            //Sigla da criptomoeda
-            subtitle: Text(listaCriptomoedas[criptomoeda].sigla),
-            //Valor da criptomoeda
-            trailing: Text(real.format(listaCriptomoedas[criptomoeda].valor)),
-            //Criptomoeda Selecionada
-            selected: selecionado.contains(listaCriptomoedas[criptomoeda]),
-            selectedTileColor: Colors.indigoAccent[100],
-            selectedColor: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),),
-            //Selecionar para Favoritar
-            onLongPress: () {
-              setState(() {
-                (selecionado.contains(listaCriptomoedas[criptomoeda]))
-                    ? selecionado.remove(listaCriptomoedas[criptomoeda])
-                    : selecionado.add(listaCriptomoedas[criptomoeda]);
-              });
-            },
-            //DETALHAR CRIPTOMOEDA
-            onTap: () => detalharCrypto(listaCriptomoedas[criptomoeda]),
-          );
-        },
-        padding: EdgeInsets.all(16),
-        separatorBuilder: (_,__) => Divider(),
-        itemCount: listaCriptomoedas.length,
+                  //Icone de favorito
+                  if (favoritos.lista.contains(listaCriptomoedas[criptomoeda]))
+                    Icon(Icons.star, color: Colors.amber, size: 14),
+                ],
+              ),
+              //Sigla da criptomoeda
+              subtitle: Text(listaCriptomoedas[criptomoeda].sigla),
+              //Valor da criptomoeda
+              trailing: Text(real.format(listaCriptomoedas[criptomoeda].valor)),
+              //Criptomoeda Selecionada
+              selected: selecionado.contains(listaCriptomoedas[criptomoeda]),
+              selectedTileColor: Colors.indigoAccent[100],
+              selectedColor: Colors.black,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),),
+              //Selecionar para Favoritar
+              onLongPress: () {
+                setState(() {
+                  (selecionado.contains(listaCriptomoedas[criptomoeda]))
+                      ? selecionado.remove(listaCriptomoedas[criptomoeda])
+                      : selecionado.add(listaCriptomoedas[criptomoeda]);
+                });
+              },
+              //DETALHAR CRIPTOMOEDA
+              onTap: () => detalharCrypto(listaCriptomoedas[criptomoeda]),
+            );
+          },
+          padding: EdgeInsets.all(16),
+          separatorBuilder: (_,__) => Divider(),
+          itemCount: listaCriptomoedas.length,
+        ),
       ),
       //Botão Favorito
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

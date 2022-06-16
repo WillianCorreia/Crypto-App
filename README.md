@@ -6,13 +6,14 @@ Aplicativo de criptomoedas em Flutter utilizando Firebase
 Esse aplicativo foi criado para facilitar a consulta de criptomoedas.
 
 **Funcionalidades:**
-1. Consulta do valor de algumas criptomoedas
-2. Simulação de Compra
-3. Favoritar principais criptomoedas
-4. Adicionar saldo
-5. Consultar saldo
-6. Login utilizando Firebase
-7. Cadastro de usuário utilizando Firebase
+1. Consulta do valor de algumas criptomoedas via API
+2. Atualização dos valores no momento de arrastar a tela para baixo
+3. Simulação de Compra
+4. Favoritar principais criptomoedas
+5. Adicionar saldo
+6. Consultar saldo
+7. Login utilizando Firebase
+8. Cadastro de usuário utilizando Firebase
 
 ## Executando o Projeto
 1. Inicialmente é necessário clonar o projeto na sua máquina.  
