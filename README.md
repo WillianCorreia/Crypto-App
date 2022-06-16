@@ -1,5 +1,5 @@
 # Crypto APP
-----------------------------------
+
 Aplicativo de criptomoedas em Flutter utilizando Firebase
 
 ## Introduçao
@@ -15,15 +15,15 @@ Esse aplicativo foi criado para facilitar a consulta de criptomoedas.
 7. Cadastro de usuário utilizando Firebase
 
 ## Executando o Projeto
-1. Inicialmente é necessário clonar o projeto na sua máquina.
+1. Inicialmente é necessário clonar o projeto na sua máquina.  
    [Repositório](https://github.com/WillianCorreia/Crypto-App.git)
-2. No desenvolvimento do projeto foi utilizada a IDE Android Studio
+2. No desenvolvimento do projeto foi utilizada a IDE Android Studio  
    [Configurar Android Studio](https://developer.android.com/studio)
-3. Para executar o projeto é necessário possuir o Flutter configurado.
+3. Para executar o projeto é necessário possuir o Flutter configurado.  
    [Configuração do ambiente Flutter](https://docs.flutter.dev/get-started/install)
-4. Para realizar o login é necessário criar uma conta no Firebase
+4. Para realizar o login é necessário criar uma conta no Firebase  
    [Conta Firebase](https://firebase.google.com/)
-5. Na sequência é preciso configurar o Flutter Fire na sua máquina
+5. Na sequência é preciso configurar o Flutter Fire na sua máquina  
    [Configuração do Flutter Fire](https://firebase.flutter.dev/docs/overview/)
 
 **Comandos Importantes**
