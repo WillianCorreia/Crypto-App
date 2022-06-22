@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:crypto/widget/auth_check.dart';
+import 'package:crypto/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
 class CryptoApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class CryptoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: AuthCheck(),
+      home: Splash(),
     );
   }
 }
